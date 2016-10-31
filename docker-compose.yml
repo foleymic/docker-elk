@@ -10,6 +10,9 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     networks:
       - docker_elk
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
   logstash:
     build: logstash/
     #command: -f /etc/logstash/conf.d/
@@ -21,6 +24,7 @@ services:
       - "5000:5000"
     networks:
       - docker_elk
+  
   kibana:
     build: kibana/
     volumes:

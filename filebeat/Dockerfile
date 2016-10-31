@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y curl && \
     dpkg -i filebeat-${FILEBEAT_VERSION}-amd64.deb && \
     rm -f filebeat-${FILEBEAT_VERSION}-amd64.deb
 
-ENTRYPOINT ["/usr/share/filebeat/bin/filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]
+CMD ["/usr/share/filebeat/bin/filebeat", "-e", "-v", "-c", "/etc/filebeat/filebeat.yml"]

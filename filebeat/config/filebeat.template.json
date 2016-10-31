@@ -1,5 +1,5 @@
 {
-  "template" : "chargebacks",
+  "template" : "*",
   "mappings": {
     "_default_": {
       "_all": {
@@ -71,6 +71,5 @@
   "order": 0,
   "settings": {
     "index.refresh_interval": "5s"
-  },
-  "template": "filebeat-*"
+  }
 }
