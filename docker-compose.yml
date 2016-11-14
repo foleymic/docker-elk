@@ -3,6 +3,7 @@ version: '2'
 services:
   elasticsearch:
     build: elasticsearch/
+    command: elasticsearch -Des.network.host=0.0.0.0
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -12,16 +13,18 @@ services:
       - docker_elk
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-
+      
   logstash:
     build: logstash/
     #command: -f /etc/logstash/conf.d/
     #command: -f /etc/logstash/conf.d/first-pipeline.conf --config.test_and_exit
     command: -f /etc/logstash/conf.d/first-pipeline.conf --config.reload.automatic
+    #command: -f /etc/logstash/conf.d/scpp.conf --config.reload.automatic
     volumes:
       - ./logstash/config:/etc/logstash/conf.d
     ports:
       - "5000:5000"
+      - "5432:5432/udp"
     networks:
       - docker_elk
   
@@ -43,6 +46,18 @@ services:
       - ../input/:/var/log/filebeat/
     networks:
       - docker_elk
+
+  kibi:
+    build: kibi/
+    volumes: 
+      - ./kibi/config/kibi.yml:/opt/kibi/config/kibi.yml
+    ports:
+      - "5606:5606"
+    networks:
+      - docker_elk
+    depends_on:
+      - elasticsearch
+
 networks:
   docker_elk:
     driver: bridge
