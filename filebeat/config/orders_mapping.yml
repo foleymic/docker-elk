@@ -1,0 +1,34 @@
+{
+   "mappings": {
+      "Order": {
+         "properties": {
+            "OrderId": {
+               "type": "string"
+            },
+            "Order Date": {
+               "type": "date"
+            },
+            "Buyer Name": {
+                "type": "string"
+            }
+         }
+      },
+      "Order Lines": {
+         "_parent": {
+            "type": "Order"
+         },
+         "type": "object",
+         "properties": {
+            "Line Number": {
+               "type": "integer"
+            },
+            "Item Name": {
+               "type": "string"
+            },
+            "QTY": {
+                "type": "integer"
+            }
+         }
+      }
+   }
+}

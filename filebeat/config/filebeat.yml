@@ -14,6 +14,14 @@ filebeat.prospectors:
 - input_type: log
   paths:
     - /var/log/filebeat/NTSB/*.txt
-  document_type: NTSB  
+  document_type: NTSB
+- input_type: log
+  paths:
+    - /var/log/filebeat/Orders/*.csv
+  document_type: Orders
+- input_type: log
+  paths:
+    - /var/log/filebeat/OrderLines/*.csv
+  document_type: OrderLines
 output.logstash:
   hosts: ["logstash:5043"]

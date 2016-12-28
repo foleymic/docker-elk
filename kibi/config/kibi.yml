@@ -86,3 +86,8 @@ kibi_core:
   datasource_encryption_key: 'iSxvZRYisyUW33FreTBSyJJ34KpEquWznUPDvn+ka14='
   datasource_cache_size: 501
   default_dashboard_id: Articles
+
+
+kibrand.enabled: true
+kibrand.name: "test"
+kibrand.logourl: "/resources/bat.png"
