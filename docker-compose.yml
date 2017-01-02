@@ -3,7 +3,6 @@ version: '2'
 services:
   elasticsearch:
     build: elasticsearch/
-    #image: elasticsearch:5.1.1
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -13,11 +12,9 @@ services:
       - docker_elk
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./elasticsearch/config/searchguard-config:/usr/share/elasticsearch/plugins/search-guard-5/sgconfig
-      - ../search-guard-ssl/example-pki-scripts/kirk-keystore.jks:/usr/share/elasticsearch/config/kirk-keystore.jks
-      - ../search-guard-ssl/example-pki-scripts/node-0-keystore.jks:/usr/share/elasticsearch/config/node-0-keystore.jks
-      - ../search-guard-ssl/example-pki-scripts/truststore.jks:/usr/share/elasticsearch/config/truststore.jks
-      
+      - ./security/searchguard-config:/usr/share/elasticsearch/plugins/search-guard-5/sgconfig
+      - ./security/certs/:/usr/share/elasticsearch/config/certs/
+ 
   logstash:
     build: logstash/
     command: -f /etc/logstash/conf.d/conf/ --config.reload.automatic
@@ -26,14 +23,17 @@ services:
       - "5043:5043"
     volumes:
       - ./logstash/config:/etc/logstash/conf.d
+      - ./security/certs/truststore.jks:/etc/logstash/certs/truststore.jks
     networks:
       - docker_elk
   
   kibana:
     build: kibana/
     volumes:
-      - ./kibana/config/:/opt/kibana/config/
+      - ./kibana/config/kibana.yml:/etc/kibana/kibana.yml
       - ./kibana/config/bundles/images/Vector-based_example.svg:/usr/share/kibana/optimize/bundles/src/ui/public/images/kibana.svg
+      - ./security/certs/ca/root-ca.pem:/etc/kibana/certs/root-ca.pem
+      - ./security/certs/kibana:/etc/kibana/certs/kibana
     ports:
       - "5601:5601"
     networks:

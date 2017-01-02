@@ -12,5 +12,6 @@ RUN sed -i -E "s|info|debug|g" /usr/share/elasticsearch/config/log4j2.properties
 #RUN wget http://oss.sonatype.org/service/local/artifact/maven/content?c=jar-with-dependencies&r=releases&g=com.floragunn&a=dlic-search-guard-auth-http-jwt&v=5.0-2 -o dlic-search-guard-auth-http-jwt-5.0-2-jar-with-dependencies
 #RUN wget http://search.maven.org/remotecontent?filepath=com/floragunn/dlic-search-guard-auth-http-jwt/5.0-2/dlic-search-guard-auth-http-jwt-5.0-2.jar -o dlic-search-guard-auth-http-jwt-5.0-2.jar
 COPY dlic-search-guard-auth-http-jwt-5.0-2-jar-with-dependencies.jar /usr/share/elasticsearch/plugins/search-guard-5
+COPY dlic-search-guard-module-dlsfls-5.1-5-jar-with-dependencies.jar /usr/share/elasticsearch/plugins/search-guard-5
 CMD ["-E", "network.host=0.0.0.0", "-E", "discovery.zen.minimum_master_nodes=1"]
 

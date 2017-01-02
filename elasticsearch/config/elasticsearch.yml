@@ -1,12 +1,12 @@
-searchguard.ssl.transport.keystore_filepath: node-0-keystore.jks
+searchguard.ssl.transport.keystore_filepath: certs/CN=node-0.MANH.com,OU=SSL,O=Test,L=Test,C=DE-keystore.jks
 searchguard.ssl.transport.keystore_password: changeit
-searchguard.ssl.transport.truststore_filepath: truststore.jks
+searchguard.ssl.transport.truststore_filepath: certs/truststore.jks
 searchguard.ssl.transport.truststore_password: changeit
 searchguard.ssl.transport.enforce_hostname_verification: false
-searchguard.ssl.http.enabled: false
-searchguard.ssl.http.keystore_filepath: node-0-keystore.jks
+searchguard.ssl.http.enabled: true
+searchguard.ssl.http.keystore_filepath: certs/CN=node-0.MANH.com,OU=SSL,O=Test,L=Test,C=DE-keystore.jks
 searchguard.ssl.http.keystore_password: changeit
-searchguard.ssl.http.truststore_filepath: truststore.jks
+searchguard.ssl.http.truststore_filepath: certs/truststore.jks
 searchguard.ssl.http.truststore_password: changeit
 searchguard.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test, C=DE
