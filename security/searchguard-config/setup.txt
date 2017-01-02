@@ -1,0 +1,16 @@
+docker-compose exec elasticsearch bash
+./plugins/search-guard-5/tools/sgadmin.sh -ts config/certs/truststore.jks -tspass changeit  \
+    -ks config/certs/CN=kirk,OU=client,O=client,L=Test,C=DE-keystore.jks -kspass changeit -cd plugins/search-guard-5/sgconfig/  -icl -nhnv
+
+download jwt plugin for sg: https://github.com/floragunncom/search-guard-authbackend-jwt/wiki
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7Il9fdiI6ImluaXQiLCJhZG1pbiI6ImluaXQiLCJyb2xlcyI6ImluaXQiLCJwYXNzd29yZCI6ImluaXQiLCJuYW1lIjoiaW5pdCIsIl9pZCI6ImluaXQifSwic3RhdGVzIjp7Imlnbm9yZSI6e30sImRlZmF1bHQiOnt9LCJpbml0Ijp7Il9fdiI6dHJ1ZSwiYWRtaW4iOnRydWUsInJvbGVzIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwibmFtZSI6dHJ1ZSwiX2lkIjp0cnVlfSwibW9kaWZ5Ijp7fSwicmVxdWlyZSI6e319LCJzdGF0ZU5hbWVzIjpbInJlcXVpcmUiLCJtb2RpZnkiLCJpbml0IiwiZGVmYXVsdCIsImlnbm9yZSJdfSwiZW1pdHRlciI6eyJkb21haW4iOm51bGwsIl9ldmVudHMiOnt9LCJfZXZlbnRzQ291bnQiOjAsIl9tYXhMaXN0ZW5lcnMiOjB9fSwiaXNOZXciOmZhbHNlLCJfZG9jIjp7Il9fdiI6MCwiYWRtaW4iOnRydWUsInJvbGVzIjoicm9sZTEsIHJvbGUyIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsIm5hbWUiOiJmb2xleW1pYyIsIl9pZCI6IjU4NjQxMjQ0NDU2NzAyODkyNmZjYjcxOSJ9LCJfcHJlcyI6eyIkX19vcmlnaW5hbF9zYXZlIjpbbnVsbCxudWxsXSwiJF9fb3JpZ2luYWxfdmFsaWRhdGUiOltudWxsXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbbnVsbF19LCJfcG9zdHMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W10sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbXSwiJF9fb3JpZ2luYWxfcmVtb3ZlIjpbXX0sImlhdCI6MTQ4Mjk1Mzg4NSwiZXhwIjoxNDgzMDQwMjg1fQ.RjaDQJ6U1xtnUVYqtLDj-c_RipodfWIuvc-WgcC4YYA
+
+
+Gen Kibana certs (http://stackoverflow.com/questions/35969920/install-shield-on-kibana-gives-pem-error)
+1. openssl genrsa -des3 -out [domain].key 1024
+2. openssl req -new -key [domain].key -out [domain].csr
+3. openssl x509 -req -days 365 -in [domain].csr -signkey [domain].key -out [domain].crt
+This was also needed for .key file to be valid:
+
+openssl rsa -in [domain].key -out [domain].key
